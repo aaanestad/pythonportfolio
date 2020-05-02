@@ -61,5 +61,3 @@ def run():
     ans = calculate(args)
     print(ans)
     run()
-
-run()
