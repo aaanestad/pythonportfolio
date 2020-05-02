@@ -1,11 +1,13 @@
 from tkinter import *
 
 def run():
-    print("pussy")
-    print(com)
+    global com
     args = parseArg(com)
     ans = calculate(args)
-    print(ans)
+    global gui
+    global output
+    secNewOutput = Label(gui, text=ans, height=4, width=8)
+    secNewOutput.grid(row = 0, column = 1)
     return
 
 def calculate(args):
@@ -66,12 +68,17 @@ def parseArg(s):
     return args
 
 def makeString(line, char):
-    line = str(char) + str(line)
-    print("newchar = " + line)
-    return line
+    global com
+    com = str(line) + str(char)
+    global gui
+    global output
+    newOutput = Label(gui, text=com, height=4, width=8)
+    newOutput.grid(row = 0, column = 1)
 
 def buildScreen():
-    com = " "
+    global com
+    com = ""
+    global gui
     gui = Tk()
     btn = Button(gui, text="Enter", command=lambda: run(), height=4, width=8)
     btn.grid(row = 4, column = 2)
@@ -99,10 +106,16 @@ def buildScreen():
     minusBtn = Button(gui, text = "-", height=4, width=8, bg='gray', command=lambda: makeString(com, "-"))
     multBtn = Button(gui, text = "*", height=4, width=8, bg='gray', command=lambda: makeString(com, "*"))
     divBtn = Button(gui, text = "/", height=4, width=8, bg='gray', command=lambda: makeString(com, "/"))
+    decBtn = Button(gui, text = ".", height=4, width=8, bg='gray', command=lambda: makeString(com, "."))
     plusBtn.grid(row = 1, column = 3)
     minusBtn.grid(row = 2, column = 3)
     multBtn.grid(row = 3, column = 3)
     divBtn.grid(row = 4, column = 3)
+    decBtn.grid(row = 4, column = 1)
+
+    global output
+    output = Label(gui, text="", height=4, width=8)
+    output.grid(row = 0, column = 1)
 
     gui.wm_geometry("500x500")
     gui.mainloop()
