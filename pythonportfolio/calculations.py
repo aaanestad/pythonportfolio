@@ -1,3 +1,5 @@
+mainCommand = ""
+
 def calculate(args):
     c = None
     priority = []
@@ -54,6 +56,9 @@ def parseArg(s):
             args = []
             break
     return args
+
+def makeString(char):
+    mainCommand = mainCommand + char
 
 def run():
     command = input("What is your calculation? ")
