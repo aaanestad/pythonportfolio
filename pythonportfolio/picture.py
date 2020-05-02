@@ -5,9 +5,9 @@ def run():
     args = parseArg(com)
     ans = calculate(args)
     global gui
-    global output
-    secNewOutput = Label(gui, text=ans, height=4, width=8)
-    secNewOutput.grid(row = 0, column = 1)
+    global secNewOutput
+    secNewOutput = Label(gui, text=ans, height=4, width=24)
+    secNewOutput.grid(row = 0, column = 0, columnspan=3)
     return
 
 def calculate(args):
@@ -58,6 +58,10 @@ def parseArg(s):
         elif(char in ["+", "-", "*", "/"]):
             firstNum = False;
             args[numArgs][0] = args[numArgs][0] + char
+            if len(args[numArgs][0]) > 1:
+                print("Not Valid")
+                args = []
+                break
             numArgs += 1
         elif(char == " "):
             continue
@@ -72,8 +76,15 @@ def makeString(line, char):
     com = str(line) + str(char)
     global gui
     global output
-    newOutput = Label(gui, text=com, height=4, width=8)
-    newOutput.grid(row = 0, column = 1)
+    newOutput = Label(gui, text=com, height=4, width=24)
+    newOutput.grid(row = 0, column = 0, columnspan = 3)
+
+def clear():
+    global com
+    global secNewOutput
+    com = ""
+    secNewOutput = Label(gui, text="", height=4, width=24)
+    secNewOutput.grid(row = 0, column = 0, columnspan = 3)
 
 def buildScreen():
     global com
@@ -107,17 +118,19 @@ def buildScreen():
     multBtn = Button(gui, text = "*", height=4, width=8, bg='gray', command=lambda: makeString(com, "*"))
     divBtn = Button(gui, text = "/", height=4, width=8, bg='gray', command=lambda: makeString(com, "/"))
     decBtn = Button(gui, text = ".", height=4, width=8, bg='gray', command=lambda: makeString(com, "."))
+    clrBtn = Button(gui, text = "CLR", height=4, width=8, bg='gray', command=lambda: clear())
     plusBtn.grid(row = 1, column = 3)
     minusBtn.grid(row = 2, column = 3)
     multBtn.grid(row = 3, column = 3)
     divBtn.grid(row = 4, column = 3)
     decBtn.grid(row = 4, column = 1)
+    clrBtn.grid(row = 4, column = 0)
 
     global output
-    output = Label(gui, text="", height=4, width=8)
-    output.grid(row = 0, column = 1)
+    output = Label(gui, text="", height=4, width=24)
+    output.grid(row = 0, column = 0, columnspan = 3)
 
-    gui.wm_geometry("500x500")
+    gui.wm_geometry("264x350")
     gui.mainloop()
 
 buildScreen()
