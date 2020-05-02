@@ -1,20 +1,37 @@
 def calculate(args):
     c = None
-    for i in range(len(args)):
+    priority = []
+    for e in reversed(args):
+        if e[0] == "":
+            priority.insert(0, e)
+    for e in reversed(args):
+        if e[0] == "+" or e[0]== "-":
+            priority.insert(0, e)
+    for e in reversed(args):
+        if e[0] == "*" or e[0]== "/":
+            priority.insert(0, e)
+    print(priority)
+    for a in priority:
+        i = args.index(a)
         if args[i][0] == "":
             break
         elif args[i][0] == "+":
             c = float(args[i][1]) + float(args[i][2])
             args[i+1][1] = float(c)
+            args[i-1][2] = float(c)
         elif args[i][0] == "-":
             c = float(args[i][1]) - float(args[i][2])
             args[i+1][1] = float(c)
+            args[i-1][2] = float(c)
         elif args[i][0] == "*":
             c = float(args[i][1]) * float(args[i][2])
             args[i+1][1] = float(c)
+            args[i-1][2] = float(c)
         elif args[i][0] == "/":
             c = float(args[i][1]) / float(args[i][2])
             args[i+1][1] = float(c)
+            args[i-1][2] = float(c)
+        print(args)
     return c
 
 def parseArg(s):
